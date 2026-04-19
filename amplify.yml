@@ -7,6 +7,7 @@ frontend:
     build:
       commands:
         - env | grep -e DATABASE_URL -e PAYLOAD_SECRET -e NEXT_PUBLIC_ -e STRIPE_ -e SHOPIFY_ -e AWS_ -e S3_ > .env.production
+        - npm run generate:importmap
         - npm run build
         # Trim unused SWC binaries to keep the deployment under the 220MB Amplify limit.
         - rm -f node_modules/@swc/core-linux-x64-gnu/swc.linux-x64-gnu.node
