@@ -11,14 +11,25 @@ import { cn, formatCurrency } from '@/lib/utils'
 
 type Frequency = 'one-time' | 'monthly'
 
-export function DonationForm() {
+interface DonationFormProps {
+  defaultInMemoryOf?: string
+  defaultInHonorOf?: string
+}
+
+export function DonationForm({ defaultInMemoryOf, defaultInHonorOf }: DonationFormProps = {}) {
+  const initialTribute: 'none' | 'memory' | 'honor' = defaultInMemoryOf
+    ? 'memory'
+    : defaultInHonorOf
+      ? 'honor'
+      : 'none'
+
   const [frequency, setFrequency] = useState<Frequency>('one-time')
   const [selectedAmount, setSelectedAmount] = useState<number | 'custom'>(100)
   const [customAmount, setCustomAmount] = useState('')
   const [donorEmail, setDonorEmail] = useState('')
   const [donorName, setDonorName] = useState('')
-  const [tribute, setTribute] = useState<'none' | 'memory' | 'honor'>('none')
-  const [tributeName, setTributeName] = useState('')
+  const [tribute, setTribute] = useState<'none' | 'memory' | 'honor'>(initialTribute)
+  const [tributeName, setTributeName] = useState(defaultInMemoryOf ?? defaultInHonorOf ?? '')
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 

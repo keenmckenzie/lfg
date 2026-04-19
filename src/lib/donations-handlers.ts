@@ -159,7 +159,7 @@ async function recordDonation(details: DonationDetails) {
   }
 
   // Upsert donor by email.
-  let donorId: string | number | undefined
+  let donorId: number | undefined
   if (details.donorEmail) {
     const existingDonor = await payload.find({
       collection: 'donors',

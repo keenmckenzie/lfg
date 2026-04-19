@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 interface DonatePageProps {
-  searchParams: Promise<{ canceled?: string }>
+  searchParams: Promise<{ canceled?: string; inMemoryOf?: string; inHonorOf?: string }>
 }
 
 export default async function DonatePage({ searchParams }: DonatePageProps) {
@@ -39,7 +39,10 @@ export default async function DonatePage({ searchParams }: DonatePageProps) {
         </div>
       )}
 
-      <DonationForm />
+      <DonationForm
+        defaultInMemoryOf={params.inMemoryOf}
+        defaultInHonorOf={params.inHonorOf}
+      />
 
       <footer className="mt-10 space-y-3 text-xs text-muted-foreground">
         <p>

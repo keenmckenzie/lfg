@@ -1,12 +1,12 @@
 import Link from 'next/link'
 
 const NAV_ITEMS = [
-  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
+  { label: 'Stories', href: '/stories' },
   { label: 'News', href: '/news' },
   { label: 'Events', href: '/events' },
-  { label: 'Stories', href: '/stories' },
-  { label: 'Shop', href: '/shop' },
+  { label: 'Team', href: '/team' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export function Header() {

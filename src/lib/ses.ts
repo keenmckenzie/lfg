@@ -18,9 +18,10 @@ interface SendEmailArgs {
   subject: string
   html: string
   text?: string
+  replyTo?: string | string[]
 }
 
-export async function sendEmail({ to, subject, html, text }: SendEmailArgs) {
+export async function sendEmail({ to, subject, html, text, replyTo }: SendEmailArgs) {
   const from = process.env.SES_FROM_EMAIL
   if (!from) {
     throw new Error('SES_FROM_EMAIL is not configured.')
@@ -38,6 +39,9 @@ export async function sendEmail({ to, subject, html, text }: SendEmailArgs) {
         ...(text ? { Text: { Data: text, Charset: 'UTF-8' } } : {}),
       },
     },
+    ...(replyTo
+      ? { ReplyToAddresses: Array.isArray(replyTo) ? replyTo : [replyTo] }
+      : {}),
   })
 
   return ses.send(command)

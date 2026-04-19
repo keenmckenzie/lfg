@@ -1,15 +1,6 @@
-import {
-  Body,
-  Container,
-  Head,
-  Heading,
-  Hr,
-  Html,
-  Preview,
-  Section,
-  Text,
-} from '@react-email/components'
+import { Heading, Hr, Section, Text } from '@react-email/components'
 
+import { EmailLayout } from './components/EmailLayout'
 import { formatCents } from '@/lib/utils'
 
 export interface DonationReceiptProps {
@@ -42,88 +33,63 @@ export default function DonationReceipt({
   const greeting = donorName ? `Dear ${donorName},` : 'Hello,'
 
   return (
-    <Html>
-      <Head />
-      <Preview>
-        Thank you for your {recurring ? 'recurring monthly' : ''} donation of {formattedAmount} to
-        Let&apos;s Fight Glio.
-      </Preview>
-      <Body style={body}>
-        <Container style={container}>
-          <Heading style={h1}>Thank you for your donation</Heading>
-          <Text style={paragraph}>{greeting}</Text>
-          <Text style={paragraph}>
-            Thank you for your {recurring ? 'recurring monthly ' : ''}gift of{' '}
-            <strong>{formattedAmount}</strong> to the Let&apos;s Fight Glio Foundation. Your
-            support directly funds glioblastoma research, awareness, and care for the families
-            facing this disease.
+    <EmailLayout
+      preview={`Thank you for your ${recurring ? 'recurring monthly ' : ''}donation of ${formattedAmount}.`}
+    >
+      <Heading style={h1}>Thank you for your donation</Heading>
+      <Text style={paragraph}>{greeting}</Text>
+      <Text style={paragraph}>
+        Thank you for your {recurring ? 'recurring monthly ' : ''}gift of{' '}
+        <strong>{formattedAmount}</strong>. Your support directly funds glioblastoma research,
+        awareness, and care for the families facing this disease.
+      </Text>
+
+      <Section style={receiptBox}>
+        <Text style={receiptRow}>
+          <strong>Amount:</strong> {formattedAmount}
+        </Text>
+        <Text style={receiptRow}>
+          <strong>Type:</strong> {recurring ? 'Monthly recurring' : 'One-time'}
+        </Text>
+        <Text style={receiptRow}>
+          <strong>Date:</strong> {formattedDate}
+        </Text>
+        <Text style={receiptRow}>
+          <strong>Receipt ID:</strong> {receiptId}
+        </Text>
+        {inMemoryOf && (
+          <Text style={receiptRow}>
+            <strong>In memory of:</strong> {inMemoryOf}
           </Text>
-
-          <Section style={receiptBox}>
-            <Text style={receiptRow}>
-              <strong>Amount:</strong> {formattedAmount}
-            </Text>
-            <Text style={receiptRow}>
-              <strong>Type:</strong> {recurring ? 'Monthly recurring' : 'One-time'}
-            </Text>
-            <Text style={receiptRow}>
-              <strong>Date:</strong> {formattedDate}
-            </Text>
-            <Text style={receiptRow}>
-              <strong>Receipt ID:</strong> {receiptId}
-            </Text>
-            {inMemoryOf && (
-              <Text style={receiptRow}>
-                <strong>In memory of:</strong> {inMemoryOf}
-              </Text>
-            )}
-            {inHonorOf && (
-              <Text style={receiptRow}>
-                <strong>In honor of:</strong> {inHonorOf}
-              </Text>
-            )}
-          </Section>
-
-          <Hr style={hr} />
-
-          <Text style={small}>
-            <strong>Tax-deductibility notice:</strong> Let&apos;s Fight Glio has applied for
-            501(c)(3) tax-exempt status. Once approved, your donation may be tax-deductible
-            retroactive to our date of incorporation. Please retain this receipt for your records.
+        )}
+        {inHonorOf && (
+          <Text style={receiptRow}>
+            <strong>In honor of:</strong> {inHonorOf}
           </Text>
+        )}
+      </Section>
 
-          {recurring && (
-            <Text style={small}>
-              You can update or cancel your monthly donation at any time by replying to this email.
-            </Text>
-          )}
+      <Hr style={hr} />
 
-          <Text style={signature}>
-            With gratitude,
-            <br />
-            The Let&apos;s Fight Glio team
-          </Text>
-        </Container>
-      </Body>
-    </Html>
+      <Text style={small}>
+        <strong>Tax-deductibility notice:</strong> Once our 501(c)(3) status is approved, your
+        donation may be tax-deductible retroactive to our date of incorporation. Please retain
+        this receipt for your records.
+      </Text>
+
+      {recurring && (
+        <Text style={small}>
+          You can update or cancel your monthly donation at any time by replying to this email.
+        </Text>
+      )}
+
+      <Text style={signature}>
+        With gratitude,
+        <br />
+        The Let&apos;s Fight Glio team
+      </Text>
+    </EmailLayout>
   )
-}
-
-const body: React.CSSProperties = {
-  backgroundColor: '#f1f5f9',
-  fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif',
-  margin: 0,
-  padding: '32px 0',
-}
-
-const container: React.CSSProperties = {
-  backgroundColor: '#ffffff',
-  borderRadius: '12px',
-  margin: '0 auto',
-  maxWidth: '560px',
-  padding: '40px 32px',
-  border: '1px solid #e2e8f0',
 }
 
 const h1: React.CSSProperties = {
