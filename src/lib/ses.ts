@@ -1,5 +1,7 @@
 import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses'
 
+// On AWS Lambda (Amplify SSR), AWS_REGION is set automatically by the runtime.
+// Locally and elsewhere we fall back to us-east-1 since SES is provisioned there.
 const ses = new SESClient({
   region: process.env.AWS_REGION || 'us-east-1',
   credentials:
@@ -19,9 +21,9 @@ interface SendEmailArgs {
 }
 
 export async function sendEmail({ to, subject, html, text }: SendEmailArgs) {
-  const from = process.env.AWS_SES_FROM_EMAIL
+  const from = process.env.SES_FROM_EMAIL
   if (!from) {
-    throw new Error('AWS_SES_FROM_EMAIL is not configured.')
+    throw new Error('SES_FROM_EMAIL is not configured.')
   }
 
   const command = new SendEmailCommand({

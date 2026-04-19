@@ -52,3 +52,6 @@ Thumbs.db
 
 # Amplify build artifacts
 .amplify-hosting
+
+# Cursor
+.cursor/
