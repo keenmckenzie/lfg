@@ -30,6 +30,10 @@ export default buildConfig({
     meta: {
       title: "Let's Fight Glio Admin",
       description: 'Content management for the Let\'s Fight Glio Foundation.',
+      icons: [
+        { rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' },
+        { rel: 'apple-touch-icon', type: 'image/svg+xml', url: '/favicon.svg' },
+      ],
     },
   },
   editor: lexicalEditor(),

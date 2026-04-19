@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { Logo } from './Logo'
+
 const NAV_ITEMS = [
   { label: 'About', href: '/about' },
   { label: 'Stories', href: '/stories' },
@@ -19,12 +21,12 @@ export function Header() {
         Skip to content
       </a>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
-        <Link href="/" className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-          <span
-            aria-hidden
-            className="inline-block h-3 w-3 rounded-full bg-primary"
-          />
-          <span>Let&apos;s Fight Glio</span>
+        <Link
+          href="/"
+          aria-label="Let's Fight Glio Foundation — home"
+          className="flex items-center"
+        >
+          <Logo height={40} alt="" />
         </Link>
 
         <nav aria-label="Primary" className="hidden md:block">

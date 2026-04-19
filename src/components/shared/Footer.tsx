@@ -1,5 +1,6 @@
 import Link from 'next/link'
 
+import { Logo } from './Logo'
 import { NewsletterForm } from './NewsletterForm'
 
 const FOOTER_LINKS = [
@@ -36,11 +37,10 @@ export function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-14">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="flex items-center gap-2 text-base font-semibold">
-              <span aria-hidden className="inline-block h-3 w-3 rounded-full bg-primary" />
-              Let&apos;s Fight Glio
-            </p>
-            <p className="mt-3 max-w-sm text-sm text-muted-foreground">
+            <Link href="/" aria-label="Let's Fight Glio Foundation — home" className="inline-flex">
+              <Logo height={44} alt="" />
+            </Link>
+            <p className="mt-4 max-w-sm text-sm text-muted-foreground">
               Funding research, supporting families, and raising awareness for glioblastoma brain
               cancer.
             </p>

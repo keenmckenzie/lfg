@@ -15,6 +15,13 @@ export const metadata: Metadata = {
   },
   description:
     'A nonprofit fighting glioblastoma brain cancer through research funding, family support, and community awareness.',
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    shortcut: ['/favicon.svg'],
+  },
   openGraph: {
     type: 'website',
     siteName: "Let's Fight Glio Foundation",
