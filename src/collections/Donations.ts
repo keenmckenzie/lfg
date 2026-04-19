@@ -4,7 +4,7 @@ export const Donations: CollectionConfig = {
   slug: 'donations',
   labels: { singular: 'Donation', plural: 'Donations' },
   admin: {
-    useAsTitle: 'stripeSessionId',
+    useAsTitle: 'donorEmail',
     group: 'Fundraising',
     defaultColumns: ['donorEmail', 'amount', 'recurring', 'status', 'createdAt'],
     description: 'Donation records are created automatically by the Stripe webhook. Do not create them manually.',
@@ -16,8 +16,11 @@ export const Donations: CollectionConfig = {
     delete: ({ req: { user } }) => Boolean(user),
   },
   fields: [
-    { name: 'stripeSessionId', type: 'text', required: true, unique: true, index: true },
+    { name: 'stripeSessionId', type: 'text', unique: true, index: true },
     { name: 'stripePaymentIntentId', type: 'text', index: true },
+    { name: 'stripeInvoiceId', type: 'text', unique: true, index: true },
+    { name: 'stripeSubscriptionId', type: 'text', index: true },
+    { name: 'stripeCustomerId', type: 'text', index: true },
     {
       name: 'amount',
       type: 'number',
@@ -27,6 +30,7 @@ export const Donations: CollectionConfig = {
     { name: 'currency', type: 'text', required: true, defaultValue: 'usd' },
     { name: 'donorEmail', type: 'email' },
     { name: 'donorName', type: 'text' },
+    { name: 'donor', type: 'relationship', relationTo: 'donors' },
     { name: 'inMemoryOf', type: 'text', maxLength: 200 },
     { name: 'inHonorOf', type: 'text', maxLength: 200 },
     {

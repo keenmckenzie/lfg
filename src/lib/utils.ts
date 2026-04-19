@@ -15,3 +15,11 @@ export function formatCurrency(
     currency,
   }).format(amount)
 }
+
+export function centsToDollars(cents: number): number {
+  return Math.round(cents) / 100
+}
+
+export function formatCents(cents: number, currency: string = 'USD'): string {
+  return formatCurrency(centsToDollars(cents), currency)
+}
