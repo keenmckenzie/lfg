@@ -1,0 +1,39 @@
+import type { Metadata } from 'next'
+
+import { Footer } from '@/components/shared/Footer'
+import { Header } from '@/components/shared/Header'
+
+import './globals.css'
+
+export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+  ),
+  title: {
+    default: "Let's Fight Glio Foundation",
+    template: "%s | Let's Fight Glio",
+  },
+  description:
+    'A nonprofit fighting glioblastoma brain cancer through research funding, family support, and community awareness.',
+  openGraph: {
+    type: 'website',
+    siteName: "Let's Fight Glio Foundation",
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+}
+
+export default function FrontendLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body className="flex min-h-screen flex-col bg-background text-foreground">
+        <Header />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+  )
+}
