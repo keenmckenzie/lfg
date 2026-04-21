@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { CartButton } from '@/components/shop/CartButton'
+
 import { Logo } from './Logo'
 
 const NAV_ITEMS = [
@@ -7,6 +9,7 @@ const NAV_ITEMS = [
   { label: 'Stories', href: '/stories' },
   { label: 'News', href: '/news' },
   { label: 'Events', href: '/events' },
+  { label: 'Shop', href: '/shop' },
   { label: 'Team', href: '/team' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -44,12 +47,15 @@ export function Header() {
           </ul>
         </nav>
 
-        <Link
-          href="/donate"
-          className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark"
-        >
-          Donate
-        </Link>
+        <div className="flex items-center gap-3">
+          <CartButton />
+          <Link
+            href="/donate"
+            className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark"
+          >
+            Donate
+          </Link>
+        </div>
       </div>
     </header>
   )

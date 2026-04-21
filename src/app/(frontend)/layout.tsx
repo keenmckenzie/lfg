@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { CartDrawer } from '@/components/shop/CartDrawer'
+import { CartProvider } from '@/components/shop/CartProvider'
 import { Footer } from '@/components/shared/Footer'
 import { Header } from '@/components/shared/Header'
 
@@ -31,15 +33,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default function FrontendLayout({ children }: { children: React.ReactNode }) {
+export default function FrontendLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col bg-background text-foreground">
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <CartProvider>
+          <Header />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   )
