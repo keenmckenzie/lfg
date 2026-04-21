@@ -1,14 +1,17 @@
 import Link from 'next/link'
 
 import { Logo } from './Logo'
+import { NavDropdown } from './NavDropdown'
 
-const NAV_ITEMS = [
-  { label: 'About', href: '/about' },
-  { label: 'Stories', href: '/stories' },
-  { label: 'News', href: '/news' },
-  { label: 'Events', href: '/events' },
+const ABOUT_ITEMS = [
+  { label: 'Mission', href: '/mission' },
   { label: 'Team', href: '/team' },
-  { label: 'Contact', href: '/contact' },
+]
+
+const UPDATES_ITEMS = [
+  { label: 'News', href: '/news' },
+  { label: 'Stories', href: '/stories' },
+  { label: 'Events', href: '/events' },
 ]
 
 export function Header() {
@@ -31,16 +34,20 @@ export function Header() {
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-6 text-sm font-medium text-foreground/80">
-            {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className="transition-colors hover:text-foreground"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            <li>
+              <NavDropdown label="About" items={ABOUT_ITEMS} />
+            </li>
+            <li>
+              <NavDropdown label="Updates" items={UPDATES_ITEMS} />
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="transition-colors hover:text-foreground"
+              >
+                Contact
+              </Link>
+            </li>
           </ul>
         </nav>
 
