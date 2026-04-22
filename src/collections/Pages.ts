@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { publicReadAdminWrite } from './access'
 import { metaField } from './fields/meta'
 import { publishedAtField, slugField, statusField } from './fields/publishing'
+import { revalidateHooks } from './hooks/revalidate'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
@@ -15,6 +16,7 @@ export const Pages: CollectionConfig = {
       'Editable static pages rendered by slug. Known slugs the site looks for: "about" (/about), "mission" (/mission). Create a page with that exact slug to override the default content. Leave a slug blank to see it auto-generated from the title.',
   },
   access: publicReadAdminWrite,
+  hooks: revalidateHooks({ tag: 'pages', slugPathPrefix: '/' }),
   fields: [
     {
       name: 'title',

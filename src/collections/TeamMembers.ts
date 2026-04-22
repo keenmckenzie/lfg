@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { publicReadAdminWrite } from './access'
 import { slugField } from './fields/publishing'
+import { revalidateHooks } from './hooks/revalidate'
 
 export const TeamMembers: CollectionConfig = {
   slug: 'team-members',
@@ -13,6 +14,7 @@ export const TeamMembers: CollectionConfig = {
   },
   defaultSort: 'order',
   access: publicReadAdminWrite,
+  hooks: revalidateHooks({ tag: 'team-members', paths: ['/team'] }),
   fields: [
     { name: 'name', type: 'text', required: true },
     slugField({ source: 'name' }),
