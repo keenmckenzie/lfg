@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/content/PageHeader'
 import { RichTextRenderer } from '@/components/content/RichTextRenderer'
 import { getPageBySlug } from '@/lib/queries'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug('mission')

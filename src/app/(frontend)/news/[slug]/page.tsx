@@ -9,7 +9,7 @@ import { metaImage, resolveMedia } from '@/lib/media'
 import { getPostBySlug } from '@/lib/queries'
 import { formatDate } from '@/lib/utils'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ slug: string }>
