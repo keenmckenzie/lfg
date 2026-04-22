@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { publicReadAdminWrite } from './access'
 import { metaField } from './fields/meta'
 import { publishedAtField, slugField, statusField } from './fields/publishing'
+import { revalidateHooks } from './hooks/revalidate'
 
 export const Stories: CollectionConfig = {
   slug: 'stories',
@@ -13,6 +14,11 @@ export const Stories: CollectionConfig = {
     defaultColumns: ['title', 'patientName', 'status', 'publishedAt'],
   },
   access: publicReadAdminWrite,
+  hooks: revalidateHooks({
+    tag: 'stories',
+    paths: ['/stories', '/'],
+    slugPathPrefix: '/stories/',
+  }),
   fields: [
     { name: 'title', type: 'text', required: true },
     slugField(),
