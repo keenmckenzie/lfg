@@ -8,7 +8,7 @@ import { RichTextRenderer } from '@/components/content/RichTextRenderer'
 import { metaImage, resolveMedia } from '@/lib/media'
 import { getStoryBySlug } from '@/lib/queries'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ slug: string }>
