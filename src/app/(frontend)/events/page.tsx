@@ -7,7 +7,7 @@ import { resolveMedia } from '@/lib/media'
 import { getEvents } from '@/lib/queries'
 import { formatDateTime } from '@/lib/utils'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Events',

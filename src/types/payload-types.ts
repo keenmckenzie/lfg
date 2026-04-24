@@ -367,16 +367,24 @@ export interface Event {
   createdAt: string;
 }
 /**
+ * Editable static pages rendered by slug. Known slugs the site looks for: "about" (/about), "mission" (/mission). Create a page with that exact slug to override the default content. Leave a slug blank to see it auto-generated from the title.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
   id: number;
+  /**
+   * Shown as the page heading on the public site.
+   */
   title: string;
   /**
    * URL-friendly identifier. Auto-generated from the title.
    */
   slug: string;
+  /**
+   * Main body of the page. Supports headings, lists, links, and rich formatting.
+   */
   content: {
     root: {
       type: string;

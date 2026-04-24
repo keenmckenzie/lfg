@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { publicReadAdminWrite } from './access'
 import { metaField } from './fields/meta'
 import { publishedAtField, slugField, statusField } from './fields/publishing'
+import { revalidateHooks } from './hooks/revalidate'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -13,6 +14,11 @@ export const Events: CollectionConfig = {
     defaultColumns: ['title', 'date', 'location', 'status'],
   },
   access: publicReadAdminWrite,
+  hooks: revalidateHooks({
+    tag: 'events',
+    paths: ['/events', '/'],
+    slugPathPrefix: '/events/',
+  }),
   fields: [
     { name: 'title', type: 'text', required: true },
     slugField(),

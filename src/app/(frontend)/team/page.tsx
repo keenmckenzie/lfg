@@ -6,7 +6,7 @@ import { PageHeader } from '@/components/content/PageHeader'
 import { resolveMedia } from '@/lib/media'
 import { getTeamMembers } from '@/lib/queries'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Our team',

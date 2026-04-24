@@ -7,7 +7,7 @@ import { resolveMedia } from '@/lib/media'
 import { getPosts } from '@/lib/queries'
 import { formatDate } from '@/lib/utils'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'News & updates',

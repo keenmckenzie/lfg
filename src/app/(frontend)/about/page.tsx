@@ -5,7 +5,7 @@ import { RichTextRenderer } from '@/components/content/RichTextRenderer'
 import { getPageBySlug } from '@/lib/queries'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageBySlug('about')

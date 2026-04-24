@@ -3,16 +3,9 @@ import Link from 'next/link'
 import { CartButton } from '@/components/shop/CartButton'
 
 import { Logo } from './Logo'
-
-const NAV_ITEMS = [
-  { label: 'About', href: '/about' },
-  { label: 'Stories', href: '/stories' },
-  { label: 'News', href: '/news' },
-  { label: 'Events', href: '/events' },
-  { label: 'Shop', href: '/shop' },
-  { label: 'Team', href: '/team' },
-  { label: 'Contact', href: '/contact' },
-]
+import { MobileNav } from './MobileNav'
+import { NavDropdown } from './NavDropdown'
+import { ABOUT_ITEMS, NAV_LEAF_ITEMS, UPDATES_ITEMS } from './nav-config'
 
 export function Header() {
   return (
@@ -34,7 +27,13 @@ export function Header() {
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-6 text-sm font-medium text-foreground/80">
-            {NAV_ITEMS.map((item) => (
+            <li>
+              <NavDropdown label="About" items={ABOUT_ITEMS} />
+            </li>
+            <li>
+              <NavDropdown label="Updates" items={UPDATES_ITEMS} />
+            </li>
+            {NAV_LEAF_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
@@ -47,14 +46,15 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <CartButton />
           <Link
             href="/donate"
-            className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark"
+            className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark sm:px-5"
           >
             Donate
           </Link>
+          <MobileNav />
         </div>
       </div>
     </header>
