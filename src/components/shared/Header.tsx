@@ -1,18 +1,9 @@
 import Link from 'next/link'
 
 import { Logo } from './Logo'
+import { MobileNav } from './MobileNav'
 import { NavDropdown } from './NavDropdown'
-
-const ABOUT_ITEMS = [
-  { label: 'Mission', href: '/mission' },
-  { label: 'Team', href: '/team' },
-]
-
-const UPDATES_ITEMS = [
-  { label: 'News', href: '/news' },
-  { label: 'Stories', href: '/stories' },
-  { label: 'Events', href: '/events' },
-]
+import { ABOUT_ITEMS, NAV_LEAF_ITEMS, UPDATES_ITEMS } from './nav-config'
 
 export function Header() {
   return (
@@ -40,23 +31,28 @@ export function Header() {
             <li>
               <NavDropdown label="Updates" items={UPDATES_ITEMS} />
             </li>
-            <li>
-              <Link
-                href="/contact"
-                className="transition-colors hover:text-foreground"
-              >
-                Contact
-              </Link>
-            </li>
+            {NAV_LEAF_ITEMS.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="transition-colors hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
-        <Link
-          href="/donate"
-          className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark"
-        >
-          Donate
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/donate"
+            className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark sm:px-5"
+          >
+            Donate
+          </Link>
+          <MobileNav />
+        </div>
       </div>
     </header>
   )
