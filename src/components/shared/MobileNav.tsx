@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useId, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 import { Logo } from './Logo'
 import { NAV_GROUPS, NAV_LEAF_ITEMS } from './nav-config'
@@ -12,6 +13,14 @@ import { NAV_GROUPS, NAV_LEAF_ITEMS } from './nav-config'
  * hidden. Opens as a full-viewport overlay so the layout doesn't have to
  * know the header's pixel height — avoids drift across devices / font sizes.
  *
+ * The overlay is rendered via a portal into `document.body`. This is
+ * required because the site header uses `backdrop-blur`, and any element
+ * with a `backdrop-filter` establishes a containing block for its
+ * `position: fixed` descendants — so a fixed overlay nested inside the
+ * header would be clipped to the header's bounds instead of covering the
+ * viewport, which is the bug that was shipping: hamburger visible,
+ * options "invisible".
+ *
  * Behavior:
  * - Closes on route change, Escape, and link tap.
  * - Locks body scroll while open so iOS doesn't rubber-band the backdrop.
@@ -19,8 +28,13 @@ import { NAV_GROUPS, NAV_LEAF_ITEMS } from './nav-config'
  */
 export function MobileNav() {
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const panelId = useId()
   const pathname = usePathname()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setOpen(false)
@@ -71,13 +85,13 @@ export function MobileNav() {
         </svg>
       </button>
 
-      {open && (
+      {open && mounted && createPortal(
         <div
           id={panelId}
           role="dialog"
           aria-modal="true"
           aria-label="Site navigation"
-          className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background"
+          className="fixed inset-0 z-50 flex flex-col overflow-y-auto bg-background md:hidden"
         >
           <div className="flex items-center justify-between gap-6 border-b border-border px-6 py-4">
             <Link
@@ -163,7 +177,8 @@ export function MobileNav() {
               Donate
             </Link>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   )
