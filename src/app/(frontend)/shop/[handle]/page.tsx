@@ -3,17 +3,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { ProductDetail } from '@/components/shop/ProductDetail'
-import { getProductByHandle, getProductHandles } from '@/lib/shopify/products'
+import { getProductByHandle } from '@/lib/shopify/products'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ handle: string }>
-}
-
-export async function generateStaticParams() {
-  const handles = await getProductHandles()
-  return handles.map((handle) => ({ handle }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

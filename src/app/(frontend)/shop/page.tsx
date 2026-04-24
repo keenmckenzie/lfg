@@ -6,7 +6,7 @@ import { ImpactBadge } from '@/components/shop/ImpactBadge'
 import { ProductCard } from '@/components/shop/ProductCard'
 import { getProducts } from '@/lib/shopify/products'
 
-export const revalidate = 300
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Shop',
