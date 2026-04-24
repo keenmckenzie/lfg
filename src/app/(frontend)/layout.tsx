@@ -39,8 +39,11 @@ export default function FrontendLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col bg-background text-foreground">
+    <html lang="en" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className="flex min-h-screen flex-col bg-background text-foreground"
+      >
         <CartProvider>
           <Header />
           <main id="main" className="flex-1">
