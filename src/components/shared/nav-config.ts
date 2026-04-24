@@ -24,4 +24,7 @@ export const NAV_GROUPS: NavGroup[] = [
   { label: 'Updates', items: UPDATES_ITEMS },
 ]
 
-export const NAV_LEAF_ITEMS: NavItem[] = [{ label: 'Contact', href: '/contact' }]
+export const NAV_LEAF_ITEMS: NavItem[] = [
+  { label: 'Shop', href: '/shop' },
+  { label: 'Contact', href: '/contact' },
+]

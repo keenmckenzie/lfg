@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { CartButton } from '@/components/shop/CartButton'
+
 import { Logo } from './Logo'
 import { MobileNav } from './MobileNav'
 import { NavDropdown } from './NavDropdown'
@@ -45,6 +47,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <CartButton />
           <Link
             href="/donate"
             className="inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary-dark sm:px-5"

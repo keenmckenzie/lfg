@@ -1,59 +1,32 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 
-export interface CartItem {
-  id: string
-  variantId: string
-  title: string
-  productTitle: string
-  handle: string
-  quantity: number
-  price: string
-  currency: string
-  image?: { url: string; altText: string | null }
-}
+import type { Cart } from '@/lib/shopify/types'
 
+/**
+ * Cart state is server-authoritative: the cart lives on Shopify and is keyed
+ * by an httpOnly cookie managed by `@/lib/shopify/cart-actions`. This store
+ * only mirrors the latest known cart for UI rendering (line count, drawer
+ * contents) and tracks drawer open/close state + a pending flag for
+ * optimistic UI.
+ */
 interface CartState {
-  cartId: string | null
-  items: CartItem[]
-  totalQuantity: number
-  totalAmount: string
-  currency: string
-  checkoutUrl: string | null
+  cart: Cart | null
   isOpen: boolean
-  // TODO: Phase 4 — replace these stubs with calls to Shopify Storefront API
-  // (cartCreate, cartLinesAdd, cartLinesUpdate, cartLinesRemove).
-  setCartId: (cartId: string | null) => void
+  isPending: boolean
+  setCart: (cart: Cart | null) => void
   openCart: () => void
   closeCart: () => void
-  clearCart: () => void
+  toggleCart: () => void
+  setPending: (pending: boolean) => void
 }
 
-export const useCartStore = create<CartState>()(
-  persist(
-    (set) => ({
-      cartId: null,
-      items: [],
-      totalQuantity: 0,
-      totalAmount: '0.00',
-      currency: 'USD',
-      checkoutUrl: null,
-      isOpen: false,
-      setCartId: (cartId) => set({ cartId }),
-      openCart: () => set({ isOpen: true }),
-      closeCart: () => set({ isOpen: false }),
-      clearCart: () =>
-        set({
-          cartId: null,
-          items: [],
-          totalQuantity: 0,
-          totalAmount: '0.00',
-          checkoutUrl: null,
-        }),
-    }),
-    {
-      name: 'lfg-cart',
-      partialize: (state) => ({ cartId: state.cartId }),
-    },
-  ),
-)
+export const useCartStore = create<CartState>()((set) => ({
+  cart: null,
+  isOpen: false,
+  isPending: false,
+  setCart: (cart) => set({ cart }),
+  openCart: () => set({ isOpen: true }),
+  closeCart: () => set({ isOpen: false }),
+  toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
+  setPending: (isPending) => set({ isPending }),
+}))
