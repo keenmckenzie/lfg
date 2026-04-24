@@ -60,7 +60,22 @@ export default buildConfig({
   }),
   plugins: [
     s3Storage({
-      collections: { media: true },
+      // `disablePayloadAccessControl` + `generateFileURL` make every media `url`
+      // (and `sizes.*.url`) point directly at the S3 virtual-hosted URL instead
+      // of being proxied through `/api/media/file/*`. The proxy path is broken
+      // on Amplify because binary responses through the Next.js Lambda hit
+      // size/streaming limits, so images render blank in production.
+      collections: {
+        media: {
+          disablePayloadAccessControl: true,
+          generateFileURL: ({ filename, prefix }) => {
+            const bucket = process.env.S3_BUCKET_NAME
+            const region = process.env.S3_REGION || 'us-east-1'
+            const key = prefix ? `${prefix}/${filename}` : filename
+            return `https://${bucket}.s3.${region}.amazonaws.com/${key}`
+          },
+        },
+      },
       bucket: process.env.S3_BUCKET_NAME || '',
       config: {
         credentials: {
